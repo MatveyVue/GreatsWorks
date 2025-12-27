@@ -12,7 +12,7 @@ composer.on('message', async (ctx) => {
 
     // Проверка, если сообщение - команда /start, то ответить приветствием
     if (messageText.startsWith('/start')) {
-        await ctx.reply('Привет! Я бот, который будет пересылать сообщения в канал @nagpz анонимно');
+        await ctx.reply('Привет! Я бот для подачи анкет в GreatsJobs, все анкеты отправляются в канал @GreatsWork');
         return; // Не пересылаем /start
     }
 
@@ -23,7 +23,7 @@ composer.on('message', async (ctx) => {
         : `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'Пользователь';
 
     // Формируем сообщение с именем пользователя
-    const messageWithUser = `New message from ${username}:\n\n${messageText}`;
+    const messageWithUser = `New Job from ${username}:\n\n${messageText}`;
 
     try {
         await ctx.telegram.sendMessage(forwardChatId, messageWithUser);
