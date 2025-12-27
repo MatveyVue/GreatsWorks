@@ -1,41 +1,34 @@
-const { Telegraf, Composer } = require('telegraf');
-
-const bot = new Telegraf('7784753596:AAFRSOreZUSN_w2-g6lhxRjKg1HUN6oa0tg');
-
-const forwardChatId = '-1002647773080';
+// composer/text.js
+const { Composer } = require('telegraf');
 
 const composer = new Composer();
 
+const forwardChatId = '-1003410007438'; // ваш чат для пересылки
+
 composer.on('message', async (ctx) => {
-const messageText = ctx.message.text || '';
+    const messageText = ctx.message.text || '';
 
-if (messageText.startsWith('/start')) {
- await ctx.reply('Привет! Я бот для подачи анкет в GreatsJobs, все анкеты отправляются в канал @GreatsWork');
- return;
-}
+    // Проверка, если сообщение - команда /start, то ответить приветствием
+    if (messageText.startsWith('/start')) {
+        await ctx.reply('Привет! Я бот который будет пересылать сообщения в канал @nagpz анонимно');
+        return; // Не пересылаем /start
+    }
 
-try {
- const userInfo = ctx.from && ctx.from.username
-   ? `@${ctx.from.username}`
-   : 'пользователь без имени пользователя';
+    // Получение информации о пользователе
+    const user = ctx.from;
+    const username = user.username ? `@${user.username}` : `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'Пользователь';
 
- const messageWithSender = `New Job From ${userInfo}\n\n${messageText}`;
+    // Формируем сообщение с именем пользователя
+    const messageWithUser = `New message from ${username}:\n\n${messageText}`;
 
- await ctx.telegram.sendMessage(forwardChatId, messageWithSender);
- await ctx.reply('Ваше сообщение было отправлено успешно.');
-} catch (err) {
- console.error('Ошибка пересылки:', err);
- await ctx.reply('Произошла ошибка при отправке сообщения. Попробуйте позже.');
-}
+    try {
+        await ctx.telegram.sendMessage(forwardChatId, messageWithUser);
+        // После успешной пересылки отправляем подтверждение пользователю
+        await ctx.reply('Ваше сообщение было отправлено успешно.');
+    } catch (err) {
+        console.error('Ошибка пересылки:', err);
+        await ctx.reply('Произошла ошибка при отправке сообщения. Попробуйте позже.');
+    }
 });
 
-// Подключение композиции к боту
-bot.use(composer);
-
-// Ловим все ошибки глобально
-bot.catch((err) => {
-console.error('Глобальная ошибка:', err);
-});
-
-// Запускаем бота
-bot.launch();
+module.exports = composer;
