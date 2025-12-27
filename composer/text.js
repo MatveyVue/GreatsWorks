@@ -3,7 +3,7 @@ const { Composer } = require('telegraf');
 
 const composer = new Composer();
 
-const forwardChatId = '-1002647773080'; // ваш чат для пересылки
+const forwardChatId = '-1002566601942'; // ваш чат для пересылки
 
 composer.on('message', async (ctx) => {
     console.log('Получено сообщение:', ctx.message);
@@ -12,7 +12,7 @@ composer.on('message', async (ctx) => {
 
     // Проверка, если сообщение - команда /start, то ответить приветствием
     if (messageText.startsWith('/start')) {
-        await ctx.reply('Привет! Я бот для подачи анкет в GreatsJobs, все анкеты отправляются в канал @GreatsWork');
+        await ctx.reply('Привет! Я бот для подачи анкет в GreatsJobs, все анкеты отправляются в канал @GreatsWorks');
         return; // Не пересылаем /start
     }
 
