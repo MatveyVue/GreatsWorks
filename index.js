@@ -3,8 +3,8 @@ const express = require('express');
 
 const app = express();
 
-const apiToken = '8575575026:AAEbWEz35zpWU4cj7eNK6xJealAuetmq2LU';
-const forwardChatId = '-1003410007438';
+const apiToken = '7784753596:AAFRSOreZUSN_w2-g6lhxRjKg1HUN6oa0tg';
+const forwardChatId = '-1002647773080';
 
 const bot = new Telegraf(apiToken, {
     telegram: {
