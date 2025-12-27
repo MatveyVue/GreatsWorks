@@ -17,7 +17,7 @@ app.use(bot.webhookCallback(`/bot${apiToken}`));
 
 app.get(`/`, async (_req, res) => {
     try {
-        const url = `https://greats-works.vercel.app//bot${apiToken}`;
+        const url = `https://greats-works.vercel.app/bot${apiToken}`;
         await bot.telegram.setWebhook(url);
         res.send("200");
     } catch {
