@@ -3,7 +3,7 @@ const { Composer } = require('telegraf');
 
 const composer = new Composer();
 
-const forwardChatId = '-1003410007438'; // ваш чат для пересылки
+const forwardChatId = '-1002647773080'; // ваш чат для пересылки
 
 composer.on('message', async (ctx) => {
     console.log('Получено сообщение:', ctx.message);
